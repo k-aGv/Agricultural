@@ -47,7 +47,7 @@ namespace kagv {
             switch (iType) {
                 case BoxType.Normal:
 
-                    brush = new SolidBrush(Color.WhiteSmoke);
+                    brush = new SolidBrush(Color.Transparent);
 
                     break;
                 case BoxType.End:
@@ -93,7 +93,7 @@ namespace kagv {
             switch (this.boxType) {
                 case BoxType.Normal:
 
-                    this.brush = new SolidBrush(Color.WhiteSmoke);
+                    this.brush = new SolidBrush(Color.Transparent);
 
                     break;
             }
@@ -111,7 +111,7 @@ namespace kagv {
                     if (this.brush != null)
                         this.brush.Dispose();
 
-                    this.brush = new SolidBrush(Color.WhiteSmoke);
+                    this.brush = new SolidBrush(Color.Transparent);
 
 
                     this.boxType = BoxType.Normal;
@@ -144,7 +144,7 @@ namespace kagv {
                     if (this.brush != null)
                         this.brush.Dispose();
 
-                    this.brush = new SolidBrush(Color.WhiteSmoke);
+                    this.brush = new SolidBrush(Color.Transparent);
 
                     this.boxType = BoxType.Normal;
                     break;
@@ -158,7 +158,7 @@ namespace kagv {
                 this.brush.Dispose();
 
 
-            this.brush = new SolidBrush(Color.WhiteSmoke);
+            this.brush = new SolidBrush(Color.Transparent);
 
             this.boxType = BoxType.Normal;
         }

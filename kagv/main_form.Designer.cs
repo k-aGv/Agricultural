@@ -56,7 +56,7 @@
             this.exportMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-
+            this.importPictureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.increaseSpeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decreaseSpeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,6 +69,7 @@
             this.manhattanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.euclideanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chebyshevToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.implementGoogleMapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stepsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -325,7 +326,7 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportMapToolStripMenuItem,
             this.importMapToolStripMenuItem,
-
+            this.importPictureToolStripMenuItem,
             this.toolStripMenuItem1,
             this.startToolStripMenuItem,
             this.increaseSpeedToolStripMenuItem,
@@ -347,6 +348,13 @@
             this.importMapToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.importMapToolStripMenuItem.Text = "Import map";
             this.importMapToolStripMenuItem.Click += new System.EventHandler(this.importMapToolStripMenuItem_Click);
+            // 
+            // importPictureToolStripMenuItem
+            // 
+            this.importPictureToolStripMenuItem.Name = "importPictureToolStripMenuItem";
+            this.importPictureToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
+            this.importPictureToolStripMenuItem.Text = "Import picture";
+            this.importPictureToolStripMenuItem.Click += new System.EventHandler(this.importPictureToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -457,7 +465,7 @@
             this.showToolStripMenuItem,
             this.borderColorToolStripMenuItem,
             this.resolutionToolStripMenuItem,
-          
+            this.implementGoogleMapsToolStripMenuItem,
             this.toolStripMenuItem2,
             this.clearToolStripMenuItem});
             this.gridToolStripMenuItem.Name = "gridToolStripMenuItem";
@@ -532,7 +540,13 @@
             this.resolutionToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.resolutionToolStripMenuItem.Text = "Resolution";
             this.resolutionToolStripMenuItem.Click += new System.EventHandler(this.resolutionToolStripMenuItem_Click);
-
+            // 
+            // implementGoogleMapsToolStripMenuItem
+            // 
+            this.implementGoogleMapsToolStripMenuItem.Name = "implementGoogleMapsToolStripMenuItem";
+            this.implementGoogleMapsToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.implementGoogleMapsToolStripMenuItem.Text = "Implement Google Maps";
+            this.implementGoogleMapsToolStripMenuItem.Click += new System.EventHandler(this.implementGoogleMapsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -656,6 +670,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importPictureToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem implementGoogleMapsToolStripMenuItem;
         private System.Windows.Forms.Label refresh_label;
         private System.Windows.Forms.ToolStripMenuItem increaseSpeedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem decreaseSpeedToolStripMenuItem;

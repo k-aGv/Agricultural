@@ -110,7 +110,12 @@ namespace kagv {
                 highlightOverCurrentBoxToolStripMenuItem.Checked = true;
             }
 
-            this.Text = "K-aGv2 Simulator (Industrial branch)";
+
+            gb_type.Visible = false;
+
+            Point point = new Point(gb_settings.Location.X + gb_settings.Size.Width + 5, gb_settings.Location.Y);
+            gb_monitor.Location = point;
+            this.Text = "K-aGv2 Simulator (Agriculture branch)";
 
             var _proc = System.Diagnostics.Process.GetCurrentProcess();
             _proc.ProcessorAffinity = new IntPtr(0x0003);//use cores 1,2 
@@ -416,6 +421,12 @@ namespace kagv {
 
         private void main_form_MouseClick(object sender, MouseEventArgs e) {
 
+             if (!importedImage){
+               DialogResult d = MessageBox.Show(this,"An image of a map is missing.\r\nAdd it now?","Agriculture Branch",MessageBoxButtons.YesNo);
+               if (d == DialogResult.Yes) importPictureToolStripMenuItem_Click(new object(), new EventArgs());
+               else return;
+            }
+
             if (timer0.Enabled || timer1.Enabled || timer2.Enabled || timer3.Enabled || timer4.Enabled) return;
 
 
@@ -666,6 +677,25 @@ namespace kagv {
             show_emissions();
 
 
+        }
+        private void importPictureToolStripMenuItem_Click(object sender, EventArgs e) {
+ 
+            ofd_importpic.Filter = "png picture (*.png)|*.png";
+            ofd_importpic.FileName = "";
+
+            if (ofd_importpic.ShowDialog() == DialogResult.OK) {
+                this.BackgroundImage = Image.FromFile(ofd_importpic.FileName);
+                for (int i = 0; i < Constants.__WidthBlocks; i++)
+                    for (int j = 0; j < Constants.__HeightBlocks; j++) {
+                        m_rectangles[i][j].BeTransparent();
+                        boxDefaultColor = Color.Transparent;
+
+                    }
+                this.Invalidate();
+                bordersToolStripMenuItem.Checked = false;
+                importedImage = true;
+            } else
+                return;
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {

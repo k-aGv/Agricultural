@@ -87,7 +87,7 @@ namespace kagv
         int loads = 0;
 
         Color selectedColor=Color.DarkGray;
-        Color boxDefaultColor = Color.WhiteSmoke;
+        Color boxDefaultColor = Color.Transparent;
 
 
 
