@@ -680,7 +680,7 @@ namespace kagv {
         }
         private void importPictureToolStripMenuItem_Click(object sender, EventArgs e) {
  
-            ofd_importpic.Filter = "png picture (*.png)|*.png";
+            ofd_importpic.Filter = "jpg picture (*.jpg)|*.jpg";
             ofd_importpic.FileName = "";
 
             if (ofd_importpic.ShowDialog() == DialogResult.OK) {
