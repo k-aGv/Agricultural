@@ -75,6 +75,8 @@ namespace kagv {
             mymap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             nud_opacity.Value = 33;
 
+            label1.Location = new Point(10,mymap.Location.X + mymap.Size.Height + 5);
+
         }
 
 

@@ -80,7 +80,7 @@
             this.mymap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.mymap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.mymap.ShowTileGridLines = false;
-            this.mymap.Size = new System.Drawing.Size(766, 516);
+            this.mymap.Size = new System.Drawing.Size(877, 624);
             this.mymap.TabIndex = 3;
             this.mymap.Zoom = 0D;
             this.mymap.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mymap_MouseClick);
@@ -92,7 +92,7 @@
             this.gb_settings.Controls.Add(this.gb_coords);
             this.gb_settings.Controls.Add(this.gb_provider);
             this.gb_settings.Controls.Add(this.btn_rec);
-            this.gb_settings.Location = new System.Drawing.Point(798, 12);
+            this.gb_settings.Location = new System.Drawing.Point(895, 12);
             this.gb_settings.Name = "gb_settings";
             this.gb_settings.Size = new System.Drawing.Size(167, 542);
             this.gb_settings.TabIndex = 4;
@@ -267,7 +267,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(977, 566);
+            this.ClientSize = new System.Drawing.Size(1074, 660);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.gb_settings);
             this.Controls.Add(this.mymap);
