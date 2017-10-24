@@ -1144,7 +1144,15 @@ namespace kagv {
             this.DoubleBuffered = true;
             this.Width = ((Constants.__WidthBlocks + 1) * Constants.__BlockSide) - 3; //3 because 2=boarder and the 1 comes from "width+1"
             this.Height = (Constants.__HeightBlocks + 1) * Constants.__BlockSide + Constants.__BottomBarOffset;
-            this.Size = new Size(this.Width, this.Height + Constants.__BottomBarOffset);
+
+            Screen s = Screen.FromControl(this);
+            int usableSizeWidth = s.WorkingArea.Width;
+            int usableSizeHeight = s.WorkingArea.Height;
+            int BoardersWidth = 2 * SystemInformation.Border3DSize.Width;
+            this.Location = new Point(s.WorkingArea.X, s.WorkingArea.Y);
+            this.Size = new Size(usableSizeWidth, usableSizeHeight);
+
+
             this.MaximizeBox = false;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
 
