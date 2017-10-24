@@ -58,6 +58,10 @@
             this.gb_provider.SuspendLayout();
             this.SuspendLayout();
             // 
+            // refreshURL
+            // 
+            this.refreshURL.Tick += new System.EventHandler(this.refreshURL_Tick);
+            // 
             // mymap
             // 
             this.mymap.BackColor = System.Drawing.SystemColors.ControlDark;

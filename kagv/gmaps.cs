@@ -120,7 +120,7 @@ namespace kagv {
             label4.Text = "WidthLng:\r\n" + mymap.ViewArea.WidthLng + "";
             label5.Text = "HeightLat:\r\n" + mymap.ViewArea.HeightLat + "";
 
-
+            //THERE IS A FUNCTION mymap.FromLatLngToLocal :D :D :D
             double remoteLat = mymap.FromLocalToLatLng(e.X, e.Y).Lat;
             double remoteLng = mymap.FromLocalToLatLng(e.X, e.Y).Lng;
             label6.Text = "Current coordinates:\r\n" + "X/Lat:" + remoteLat + "\r\n" + "Y/Lng:" + remoteLng;
@@ -145,8 +145,8 @@ namespace kagv {
 
         }
 
+        private void refreshURL_Tick(object sender, EventArgs e) {
 
-
-
+        }
     }
 }
