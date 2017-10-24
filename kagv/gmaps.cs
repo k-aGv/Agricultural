@@ -69,7 +69,7 @@ namespace kagv {
             cb_provider.Items.Add("GoogleMapProvider");
             cb_provider.Items.Add("GoogleTerrainMapProvider");
             cb_provider.Items.Add("BingSatelliteMapProvider");
-            cb_provider.Text = "GoogleMapProvider";
+            cb_provider.Text = "BingSatelliteMapProvider";
             //its not a joke ->
             //____________________________________________________________________opacity______________R___________________________G_______________________B
             mymap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
