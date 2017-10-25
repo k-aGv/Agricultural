@@ -8,8 +8,7 @@ namespace kagv {
 
         private void ConfigUi() {
 
-            if (Globals.SemiTransparency)
-                Globals.SemiTransparent = Color.FromArgb(Globals.Opacity, Color.WhiteSmoke);
+            Globals.SemiTransparent = Color.FromArgb(Globals.Opacity, Color.WhiteSmoke);
 
             for (int i = 0; i < _startPos.Count; i++) {
                 _AGVs[i] = new Vehicle(this) {
@@ -24,7 +23,7 @@ namespace kagv {
             FormBorderStyle = FormBorderStyle.FixedSingle;
 
             //Transparent and SemiTransparent feature serves the agri/industrial branch recursively
-            importImageLayoutToolStripMenuItem.Enabled = Globals.SemiTransparency;
+            importImageLayoutToolStripMenuItem.Enabled = true;
 
             importImageLayoutToolStripMenuItem.Text = importImageLayoutToolStripMenuItem.Enabled ? "Import image layout" : "Semi Transparency feature is disabled";
 

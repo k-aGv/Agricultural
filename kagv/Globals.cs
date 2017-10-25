@@ -34,8 +34,6 @@ namespace kagv {
         public const int MaximumAGVs = 5;
         public const int GbMonitorWidth = 275;
         public const int GbMonitorHeight = 65;
-        public const bool SemiTransparency = true;
-
 
         //Grid's stats
         public static int TimerInterval =50; //the actual timer interval in ms

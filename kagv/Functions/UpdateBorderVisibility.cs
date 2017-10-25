@@ -18,7 +18,7 @@ namespace kagv {
                         if (_rectangles[i][j].BoxType == BoxType.Normal) {
                             _rectangles[i][j].BeVisible();
 
-                            _boxDefaultColor = Globals.SemiTransparency ? Color.FromArgb(128, 255, 0, 255) : Color.WhiteSmoke;
+                            _boxDefaultColor = Color.FromArgb(128, 255, 0, 255);
                         }
                 BackColor = _selectedColor;
             }

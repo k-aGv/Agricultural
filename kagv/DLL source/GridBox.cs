@@ -52,7 +52,7 @@ namespace kagv.DLL_source {
             BoxType = iType;
             switch (iType) {
                 case BoxType.Normal:
-                    _brush = Globals.SemiTransparency ? new SolidBrush(Globals.SemiTransparent) : new SolidBrush(Color.WhiteSmoke);
+                    _brush = new SolidBrush(Globals.SemiTransparent);
                     break;
                 case BoxType.End:
                     _brush = new SolidBrush(Color.Red);
@@ -87,7 +87,7 @@ namespace kagv.DLL_source {
 
         public void SwitchEnd_StartToNormal(){
             _brush?.Dispose();
-            _brush = Globals.SemiTransparency ? new SolidBrush(Globals.SemiTransparent) : new SolidBrush(Color.WhiteSmoke);
+            _brush = new SolidBrush(Globals.SemiTransparent);
             BoxType = BoxType.Normal;
 
         }
@@ -109,7 +109,7 @@ namespace kagv.DLL_source {
         public void BeVisible() {
             switch (BoxType) {
                 case BoxType.Normal:
-                    _brush = Globals.SemiTransparency ? new SolidBrush(Globals.SemiTransparent) : new SolidBrush(Color.WhiteSmoke);
+                    _brush = new SolidBrush(Globals.SemiTransparent);
                     break;
                 case BoxType.Wall:
                     _brush?.Dispose();
@@ -129,7 +129,7 @@ namespace kagv.DLL_source {
                 case BoxType.Load:
                     _brush?.Dispose();
 
-                    _brush = Globals.SemiTransparency ? new SolidBrush(Globals.SemiTransparent) : new SolidBrush(Color.WhiteSmoke);
+                    _brush = new SolidBrush(Globals.SemiTransparent) ;
                     BoxType = BoxType.Normal;
                     break;
 

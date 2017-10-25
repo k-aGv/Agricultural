@@ -86,7 +86,7 @@ namespace kagv {
         private int _labeled_loads; //index that is used for displaying how many loads have not been picked up
 
         private Color _selectedColor = Color.DarkGray;
-        private Color _boxDefaultColor = (Globals.SemiTransparency) ? Color.FromArgb(Globals.Opacity, Color.WhiteSmoke) : Color.WhiteSmoke;
+        private Color _boxDefaultColor = Color.FromArgb(Globals.Opacity, Color.WhiteSmoke) ;
 
         private Image _importedImageFile;
         private Image _importedLayout = null;
