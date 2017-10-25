@@ -44,7 +44,7 @@ namespace kagv {
         public static int WidthBlocks; //grid blocks
         public static int HeightBlocks; //grid blocks
         public static int BlockSide = 15;
-        public static byte Opacity = (byte) ( (BitConverter.GetBytes(Color.WhiteSmoke.ToArgb()).Reverse().ToArray())[0] - (100) );
+        public static byte Opacity = (byte) ( (BitConverter.GetBytes(Color.WhiteSmoke.ToArgb()).Reverse().ToArray())[0] - (255) );
         public static Color SemiTransparent;
         public static double AStarWeight = 0.5;
 
