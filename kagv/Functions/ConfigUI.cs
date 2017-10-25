@@ -35,7 +35,7 @@ namespace kagv {
             highlightOverCurrentBoxToolStripMenuItem.Checked = true;
 
 
-            Text = "K-aGv2 Simulator (Industrial branch)";
+            Text = "K-aGv Simulator-Agricultural";
             timer0.Interval = timer1.Interval = timer2.Interval = timer3.Interval = timer4.Interval = Globals.TimerInterval;
 
             //Do not show the START menu because there is no valid path yet
