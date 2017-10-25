@@ -22,11 +22,6 @@ namespace kagv {
             MaximizeBox = false;
             FormBorderStyle = FormBorderStyle.FixedSingle;
 
-            //Transparent and SemiTransparent feature serves the agri/industrial branch recursively
-            importImageLayoutToolStripMenuItem.Enabled = true;
-
-            importImageLayoutToolStripMenuItem.Text = importImageLayoutToolStripMenuItem.Enabled ? "Import image layout" : "Semi Transparency feature is disabled";
-
             stepsToolStripMenuItem.Checked = false;
             linesToolStripMenuItem.Checked =
             dotsToolStripMenuItem.Checked =

@@ -44,6 +44,7 @@ namespace kagv {
         public static int BlockSide = 15;
         public static byte Opacity = (byte) ( (BitConverter.GetBytes(Color.WhiteSmoke.ToArgb()).Reverse().ToArray())[0] - (255) );
         public static Color SemiTransparent;
+        public static bool SemiTransparency = false;
         public static double AStarWeight = 0.5;
 
         //This value is needed since the application does not allow me to change the Debug menu
