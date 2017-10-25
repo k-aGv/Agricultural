@@ -33,9 +33,6 @@ using GMap.NET.WindowsForms;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using GMap.NET.MapProviders;
-using System.IO.Compression;
-using System.Text;
-using System.Globalization;
 
 namespace kagv {
     //mapinfo struct
@@ -245,7 +242,7 @@ namespace kagv {
             if (bg.IsBusy) {
                 bg.CancelAsync();
             }
-            this.Close();
+            Close();
         }
 
         private void Screenshot_FormClosing(object sender, FormClosingEventArgs e) {
@@ -253,7 +250,7 @@ namespace kagv {
         }
 
         private void Screenshot_Load(object sender, EventArgs e) {
-            this.Location = gmap.Location;
+            Location = gmap.Location;
 
             nud_zoom.Maximum = gmap.mymap.MaxZoom;
             nud_zoom.Minimum = gmap.mymap.MinZoom;

@@ -22,19 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 using GMap.NET;
-using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
-using GMap.NET.WindowsForms.Markers;
-using GMap.NET.WindowsForms.ToolTips;
 
 
 namespace kagv {
@@ -50,29 +42,29 @@ namespace kagv {
             //calculate margin
             int margin = mymap.Location.X + SystemInformation.Border3DSize.Width;
 
-            this.MaximizeBox = false;
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.CenterToScreen();
+            MaximizeBox = false;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            CenterToScreen();
             Screen s = Screen.FromControl(this);
             int usableSizeWidth = s.WorkingArea.Width;
             int usableSizeHeight = s.WorkingArea.Height;
             int BoardersWidth = 2 * SystemInformation.Border3DSize.Width;
-            this.Location = new Point(s.WorkingArea.X, s.WorkingArea.Y);
-            this.Size = new Size(usableSizeWidth, usableSizeHeight);
+            Location = new Point(s.WorkingArea.X, s.WorkingArea.Y);
+            Size = new Size(usableSizeWidth, usableSizeHeight);
 
 
-            gb_settings.Location = new Point(this.Size.Width - gb_settings.Width - BoardersWidth - margin, gb_settings.Location.Y);
+            gb_settings.Location = new Point(Size.Width - gb_settings.Width - BoardersWidth - margin, gb_settings.Location.Y);
 
             nud_opacity.Maximum = 255;
             nud_opacity.Minimum = 0;
 
             //map implementation
             //get title's bar size
-            Rectangle screenRectangle = RectangleToScreen(this.ClientRectangle);
-            int titleHeight = screenRectangle.Top - this.Top;
+            Rectangle screenRectangle = RectangleToScreen(ClientRectangle);
+            int titleHeight = screenRectangle.Top - Top;
 
             mymap.Width = gb_settings.Location.X - margin;
-            mymap.Height = this.Size.Height - margin - titleHeight - (2 * label1.Height);
+            mymap.Height = Size.Height - margin - titleHeight - (2 * label1.Height);
             mymap.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;//using it as FULL reference to have the complete list of providers
             GMaps.Instance.Mode = AccessMode.ServerOnly;
 

@@ -111,6 +111,8 @@
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.borderColorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.defaultGridSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.googleMapsImplementationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showGridBlockLocationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_grid = new System.Windows.Forms.ColorDialog();
@@ -129,8 +131,6 @@
             this.btn_right = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.googleMapsImplementationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tree_stats = new kagv.BufferedTreeView();
             this.menuPanel.SuspendLayout();
             this.gb_type.SuspendLayout();
@@ -624,6 +624,18 @@
             this.defaultGridSizeToolStripMenuItem.Text = "Default Grid size";
             this.defaultGridSizeToolStripMenuItem.Click += new System.EventHandler(this.defaultGridSizeToolStripMenuItem_Click);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(229, 6);
+            // 
+            // googleMapsImplementationToolStripMenuItem
+            // 
+            this.googleMapsImplementationToolStripMenuItem.Name = "googleMapsImplementationToolStripMenuItem";
+            this.googleMapsImplementationToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.googleMapsImplementationToolStripMenuItem.Text = "Google Maps implementation";
+            this.googleMapsImplementationToolStripMenuItem.Click += new System.EventHandler(this.googleMapsImplementationToolStripMenuItem_Click);
+            // 
             // debugToolStripMenuItem
             // 
             this.debugToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -792,18 +804,6 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(190, 17);
             this.toolStripStatusLabel1.Text = "Hold CTRL for grid configuration...";
             // 
-            // googleMapsImplementationToolStripMenuItem
-            // 
-            this.googleMapsImplementationToolStripMenuItem.Name = "googleMapsImplementationToolStripMenuItem";
-            this.googleMapsImplementationToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
-            this.googleMapsImplementationToolStripMenuItem.Text = "Google Maps implementation";
-            this.googleMapsImplementationToolStripMenuItem.Click += new System.EventHandler(this.googleMapsImplementationToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(229, 6);
-            // 
             // tree_stats
             // 
             this.tree_stats.Location = new System.Drawing.Point(0, 27);
@@ -863,7 +863,7 @@
             this.MainMenuStrip = this.settings_menu;
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "kagv Simulation-Agricultural";
+            this.Text = "K-aGv Simulation-Agricultural";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.main_form_FormClosing);
             this.Load += new System.EventHandler(this.main_form_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.main_form_Paint);
