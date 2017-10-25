@@ -250,6 +250,9 @@ namespace kagv {
         }
 
         private void Screenshot_Load(object sender, EventArgs e) {
+
+            cb_drawinfo.Checked = false;
+            cb_drawscale.Checked = false;
             Location = gmap.Location;
 
             nud_zoom.Maximum = gmap.mymap.MaxZoom;
