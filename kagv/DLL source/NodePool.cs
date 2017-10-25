@@ -1,9 +1,18 @@
-/*!
+/*! 
+@file NodePool.cs
+@author Woong Gyu La a.k.a Chris. <juhgiyo@gmail.com>
+		<http://github.com/juhgiyo/eppathfinding.cs>
+@date July 16, 2013
+@brief NodePool Interface
+@version 2.0
+
+@section LICENSE
+
 The MIT License (MIT)
 
 Copyright (c) 2013 Woong Gyu La <juhgiyo@gmail.com>
 Copyright (c) 2017 Dimitris Katikaridis <dkatikaridis@gmail.com>,Giannis Menekses <johnmenex@hotmail.com>
-
+ 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -21,23 +30,21 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-*/
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections;
 
-namespace kagv {
+*/
+using System.Collections.Generic;
+
+namespace kagv.DLL_source {
     public class NodePool {
-        protected Dictionary<GridPos, Node> m_nodes;
+        protected Dictionary<GridPos, Node> Mnodes;
 
         public NodePool() {
-            m_nodes = new Dictionary<GridPos, Node>();
+            Mnodes = new Dictionary<GridPos, Node>();
         }
 
-        public Dictionary<GridPos, Node> Nodes {
-            get { return m_nodes; }
+        public Dictionary<GridPos, Node> Nodes
+        {
+            get => Mnodes;
         }
         public Node GetNode(int iX, int iY) {
             GridPos pos = new GridPos(iX, iY);
@@ -45,8 +52,7 @@ namespace kagv {
         }
 
         public Node GetNode(GridPos iPos) {
-            Node retVal = null;
-            m_nodes.TryGetValue(iPos, out retVal);
+            Mnodes.TryGetValue(iPos, out var retVal);
             return retVal;
         }
 
@@ -57,32 +63,31 @@ namespace kagv {
 
         public Node SetNode(GridPos iPos, bool? iWalkable = null) {
             if (iWalkable.HasValue) {
-                if (iWalkable.Value == true) {
-                    Node retVal = null;
-                    if (m_nodes.TryGetValue(iPos, out retVal)) {
+                if (iWalkable.Value) {
+                    if (Mnodes.TryGetValue(iPos, out var retVal)) {
                         return retVal;
                     }
-                    Node newNode = new Node(iPos.x, iPos.y, iWalkable);
-                    m_nodes.Add(iPos, newNode);
+                    Node newNode = new Node(iPos.X, iPos.Y, iWalkable);
+                    Mnodes.Add(iPos, newNode);
                     return newNode;
-                } else {
-                    removeNode(iPos);
-                }
+                } 
+                RemoveNode(iPos);
+                
 
             } else {
-                Node newNode = new Node(iPos.x, iPos.y, true);
-                m_nodes.Add(iPos, newNode);
+                Node newNode = new Node(iPos.X, iPos.Y, true);
+                Mnodes.Add(iPos, newNode);
                 return newNode;
             }
             return null;
         }
-        protected void removeNode(int iX, int iY) {
+        protected void RemoveNode(int iX, int iY) {
             GridPos pos = new GridPos(iX, iY);
-            removeNode(pos);
+            RemoveNode(pos);
         }
-        protected void removeNode(GridPos iPos) {
-            if (m_nodes.ContainsKey(iPos))
-                m_nodes.Remove(iPos);
+        protected void RemoveNode(GridPos iPos) {
+            if (Mnodes.ContainsKey(iPos))
+                Mnodes.Remove(iPos);
         }
     }
 }

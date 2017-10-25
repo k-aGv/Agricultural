@@ -1,9 +1,18 @@
-﻿/*!
+﻿/*! 
+@file GridPos.cs
+@author Woong Gyu La a.k.a Chris. <juhgiyo@gmail.com>
+		<http://github.com/juhgiyo/eppathfinding.cs>
+@date July 16, 2013
+@brief Grid Position Interface
+@version 2.0
+
+@section LICENSE
+
 The MIT License (MIT)
 
 Copyright (c) 2013 Woong Gyu La <juhgiyo@gmail.com>
 Copyright (c) 2017 Dimitris Katikaridis <dkatikaridis@gmail.com>,Giannis Menekses <johnmenex@hotmail.com>
-
+ 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -21,36 +30,34 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
 */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace kagv {
+namespace kagv.DLL_source {
     public class GridPos : IEquatable<GridPos> {
-        public int x;
-        public int y;
+        public int X;
+        public int Y;
 
         public GridPos() {
-            x = 0;
-            y = 0;
+            X = 0;
+            Y = 0;
         }
         public GridPos(int iX, int iY) {
-            this.x = iX;
-            this.y = iY;
+            X = iX;
+            Y = iY;
         }
 
         public GridPos(GridPos b) {
-            x = b.x;
-            y = b.y;
+            X = b.X;
+            Y = b.Y;
         }
 
         public override int GetHashCode() {
-            return x ^ y;
+            return X ^ Y;
         }
 
-        public override bool Equals(System.Object obj) {
+        public override bool Equals(Object obj) {
             // Unlikely to compare incorrect type so removed for performance
             // if (!(obj.GetType() == typeof(GridPos)))
             //     return false;
@@ -61,30 +68,28 @@ namespace kagv {
             }
 
             // Return true if the fields match:
-            return (x == p.x) && (y == p.y);
+            return (X == p.X) && (Y == p.Y);
         }
 
         public bool Equals(GridPos p) {
-            if (ReferenceEquals(null, p)) {
+            if (ReferenceEquals(null, p)) 
                 return false;
-            }
+            
             // Return true if the fields match:
-            return (x == p.x) && (y == p.y);
+            return (X == p.X) && (Y == p.Y);
         }
 
         public static bool operator ==(GridPos a, GridPos b) {
             // If both are null, or both are same instance, return true.
-            if (System.Object.ReferenceEquals(a, b)) {
+            if (ReferenceEquals(a, b)) 
                 return true;
-            }
-            if (ReferenceEquals(null, a)) {
+            if (ReferenceEquals(null, a)) 
                 return false;
-            }
-            if (ReferenceEquals(null, b)) {
+            if (ReferenceEquals(null, b)) 
                 return false;
-            }
+            
             // Return true if the fields match:
-            return a.x == b.x && a.y == b.y;
+            return a.X == b.X && a.Y == b.Y;
         }
 
         public static bool operator !=(GridPos a, GridPos b) {
@@ -92,9 +97,13 @@ namespace kagv {
         }
 
         public GridPos Set(int iX, int iY) {
-            this.x = iX;
-            this.y = iY;
+            X = iX;
+            Y = iY;
             return this;
+        }
+
+        public override string ToString() {
+            return $"({X},{Y})";
         }
     }
 }

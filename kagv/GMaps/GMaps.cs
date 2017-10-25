@@ -48,7 +48,7 @@ namespace kagv {
         private void gmaps_Load(object sender, EventArgs e) {
 
             //calculate margin
-            int margin = mymap.Location.X + SystemInformation.Border3DSize.Width ;
+            int margin = mymap.Location.X + SystemInformation.Border3DSize.Width;
 
             this.MaximizeBox = false;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -56,11 +56,11 @@ namespace kagv {
             Screen s = Screen.FromControl(this);
             int usableSizeWidth = s.WorkingArea.Width;
             int usableSizeHeight = s.WorkingArea.Height;
-            int BoardersWidth = 2* SystemInformation.Border3DSize.Width;
-            this.Location = new Point(s.WorkingArea.X,s.WorkingArea.Y);
+            int BoardersWidth = 2 * SystemInformation.Border3DSize.Width;
+            this.Location = new Point(s.WorkingArea.X, s.WorkingArea.Y);
             this.Size = new Size(usableSizeWidth, usableSizeHeight);
 
-            
+
             gb_settings.Location = new Point(this.Size.Width - gb_settings.Width - BoardersWidth - margin, gb_settings.Location.Y);
 
             nud_opacity.Maximum = 255;
@@ -72,7 +72,7 @@ namespace kagv {
             int titleHeight = screenRectangle.Top - this.Top;
 
             mymap.Width = gb_settings.Location.X - margin;
-            mymap.Height = this.Size.Height - margin - titleHeight - (2*label1.Height);
+            mymap.Height = this.Size.Height - margin - titleHeight - (2 * label1.Height);
             mymap.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;//using it as FULL reference to have the complete list of providers
             GMaps.Instance.Mode = AccessMode.ServerOnly;
 
@@ -90,14 +90,14 @@ namespace kagv {
             mymap.InvertedMouseWheelZooming = false;
             cb_wheel.Checked = false;
 
-            
+
             //its not a joke ->
             //____________________________________________________________________opacity______________R___________________________G_______________________B
             mymap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             nud_opacity.Value = 33;
 
             //resize GB ...just A E S T H I T I C 
-            gb_settings.Size =new Size(gb_settings.Size.Width, mymap.Size.Height);
+            gb_settings.Size = new Size(gb_settings.Size.Width, mymap.Size.Height);
             //set the label to the bottom
             label1.Location = new Point(10, mymap.Location.X + mymap.Size.Height + 5);
         }

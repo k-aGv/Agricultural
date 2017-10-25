@@ -1,7 +1,5 @@
-﻿namespace kagv
-{
-    partial class gmaps
-    {
+﻿namespace kagv {
+    partial class gmaps {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -11,10 +9,8 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -26,8 +22,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(gmaps));
             this.refreshURL = new System.Windows.Forms.Timer(this.components);
@@ -278,7 +273,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "gmaps";
-            this.Text = "gmaps";
+            this.Text = "Google Maps implementation";
             this.Load += new System.EventHandler(this.gmaps_Load);
             this.gb_settings.ResumeLayout(false);
             this.gb_preferences.ResumeLayout(false);

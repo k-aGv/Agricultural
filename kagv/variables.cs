@@ -21,79 +21,76 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using kagv.DLL_source;
+namespace kagv {
 
-using System.Diagnostics;
-using System.IO;
+    public partial class MainForm {
 
-namespace kagv
-{
-    
-    public partial class main_form
-    {
-
-        emissions emissions = new emissions();
-        double CO2 = 0, CO = 0, NOx = 0, THC = 0, GlobalWarming = 0;
+        private double _CO2 , _CO , _NOx , _THC, _globalWarming ;//default value =0 
 
 
         //Handle our custom functions
-        kagvFunctions.kFunctions __f = new kagvFunctions.kFunctions();
+        private readonly k_aGv_functions.Functions _f = new k_aGv_functions.Functions();
 
-        
-        bool[,] is_trapped;
-        int[,] isLoad = new int[Constants.__WidthBlocks, Constants.__HeightBlocks];
-        BoxType[,] importmap;
+        //cells that represent Load can have 4 vallues:
+        //available Load = 1
+        //not a Load = 2
+        //Marked by an AGV Load = 3
+        //Temporarily trapped Load = 4
+        private int[,] _isLoad;
 
-        GridBox[][] m_rectangles;//2d jagged array. Contains grid information (coords of each box, boxtype, etc etc)  
+        private BoxType[,] _importmap;
 
-        int[] timer_counter;
-        bool[] fromstart = new bool[Constants.__MaximumAGVs];
-        Vehicle[] AGVs = new Vehicle[Constants.__MaximumAGVs];
+        private GridBox[][] _rectangles;//2d jagged array. Contains grid information (coords of each box, boxtype, etc etc)  
 
-        List<GridPos> JumpPointsList = new List<GridPos>();
-        List<GridPos> StartPos = new List<GridPos>(); //Contains the coords of the Start boxes
+        private int[] _onWhichStep;
+        private bool[] _fromstart = new bool[Globals.MaximumAGVs];
 
-        int a; //temporary X.Used to calculate the remained length of current line
-        int b; //temporary Y.Used to calculate the remained length of current line
-        int pos_index = 0;
-        BaseGrid searchGrid;
-        JumpPointParam jumpParam;//custom jump method with its features exposed
-        Graphics paper;//main graphics for grid
-        HeuristicMode mode = HeuristicMode.MANHATTAN;
-        GridBox m_lastBoxSelect;
-        BoxType m_lastBoxType = new BoxType();
-        ToolTip tp;
-        Point endPointCoords = new Point(-1,-1);
-
-        bool imported;
-        bool importedImage = false;
-        bool beforeStart = true;
-        bool calibrated = false;//flag checking if current point is correctly callibrated in the middle of the rectangle
-        bool isMouseDown = false;
-        bool NoJumpPointsFound;
-        bool mapHasLoads = false;      
-        bool allowHighlight = true;
-        bool useRecursive = false;
-        bool crossAdjacent = false;
-        bool crossCorners = true;
-        int loads = 0;
-
-        Color selectedColor=Color.DarkGray;
-        Color boxDefaultColor = Color.Transparent;
+        private List<Vehicle> _AGVs = new List<Vehicle>();
+        private List<GridPos> _startPos = new List<GridPos>(); //Contains the coords of the Start boxes
+        private List<GridPos> _loadPos;
+        private readonly bool[] _trappedStatus = new bool[5];
 
 
+        private int _a; //temporary X.Used to calculate the remained length of current line
+        private int _b; //temporary Y.Used to calculate the remained length of current line
+        private int _posIndex; //=0 s the default value anyway
+        private BaseGrid _searchGrid;
+        private AStarParam _jumpParam;//custom jump method with its features exposed
+        private static Graphics _paper;//main graphics for grid
 
-        int reflectedBlock;
-        int reflectedWidth;
-        int reflectedHeight;
-        bool reflected = false;
+        private GridBox _lastBoxSelect;
+        private BoxType _lastBoxType;
+        private ToolTip _tp;
+        private Point _endPointCoords = new Point(-1, -1);
+
+        private bool _holdCtrl;
+        private bool _useHalt;
+        private bool _overImage;
+        private bool _imported;
+        private bool _beforeStart = true;
+        private bool _calibrated ;//flag checking if current point is correctly callibrated in the middle of the rectangle
+        private bool _isMouseDown;
+        private bool _mapHasLoads;
+        private bool _allowHighlight = true;
+
+        private bool _alwaysCross = true;
+        private bool _atLeastOneObstacle ;
+        private bool _ifNoObstacles ;
+        private bool _never ;
+
+        private int _loads ; //default=0 anyways...index for keeping count of how many Loads there are in the Grid
+        private int _labeled_loads; //index that is used for displaying how many loads have not been picked up
+
+        private Color _selectedColor = Color.DarkGray;
+        private Color _boxDefaultColor = (Globals.SemiTransparency) ? Color.FromArgb(Globals.Opacity, Color.WhiteSmoke) : Color.WhiteSmoke;
+
+        private Image _importedImageFile;
+        private Image _importedLayout = null;
+
+
     }
 }

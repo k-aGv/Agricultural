@@ -1,9 +1,18 @@
-﻿/*!
+﻿/*! 
+@file BaseGrid.cs
+@author Woong Gyu La a.k.a Chris. <juhgiyo@gmail.com>
+		<http://github.com/juhgiyo/eppathfinding.cs>
+@date July 16, 2013
+@brief BaseGrid Interface
+@version 2.0
+
+@section LICENSE
+
 The MIT License (MIT)
 
 Copyright (c) 2013 Woong Gyu La <juhgiyo@gmail.com>
 Copyright (c) 2017 Dimitris Katikaridis <dkatikaridis@gmail.com>,Giannis Menekses <johnmenex@hotmail.com>
-
+ 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -21,78 +30,78 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
 */
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections;
 
-namespace kagv {
-    public class Node : IComparable {
-        public int x;
-        public int y;
-        public bool walkable;
-        public float heuristicStartToEndLen; // which passes current node
-        public float startToCurNodeLen;
-        public float? heuristicCurNodeToEndLen;
-        public bool isOpened;
-        public bool isClosed;
-        public Object parent;
+namespace kagv.DLL_source {
+    public class Node : IComparable<Node> {
+        public readonly int X;
+        public readonly int Y;
+        public bool Walkable;
+        public float HeuristicStartToEndLen; // which passes current node
+        public float StartToCurNodeLen;
+        public float? HeuristicCurNodeToEndLen;
+        public bool IsOpened;
+        public bool IsClosed;
+        public Object Parent;
 
         public Node(int iX, int iY, bool? iWalkable = null) {
-            this.x = iX;
-            this.y = iY;
-            this.walkable = (iWalkable.HasValue ? iWalkable.Value : false);
-            this.heuristicStartToEndLen = 0;
-            this.startToCurNodeLen = 0;
-            this.heuristicCurNodeToEndLen = null;
-            this.isOpened = false;
-            this.isClosed = false;
-            this.parent = null;
+            X = iX;
+            Y = iY;
+            Walkable = iWalkable.HasValue && iWalkable.Value ;
+            HeuristicStartToEndLen = 0;
+            StartToCurNodeLen = 0;
+            // this must be initialized as null to verify that its value never initialized
+            // 0 is not good candidate!!
+            HeuristicCurNodeToEndLen = null;
+            IsOpened = false;
+            IsClosed = false;
+            Parent = null;
 
         }
 
         public Node(Node b) {
-            this.x = b.x;
-            this.y = b.y;
-            this.walkable = b.walkable;
-            this.heuristicStartToEndLen = b.heuristicStartToEndLen;
-            this.startToCurNodeLen = b.startToCurNodeLen;
-            this.heuristicCurNodeToEndLen = b.heuristicCurNodeToEndLen;
-            this.isOpened = b.isOpened;
-            this.isClosed = b.isClosed;
-            this.parent = b.parent;
+            X = b.X;
+            Y = b.Y;
+            Walkable = b.Walkable;
+            HeuristicStartToEndLen = b.HeuristicStartToEndLen;
+            StartToCurNodeLen = b.StartToCurNodeLen;
+            HeuristicCurNodeToEndLen = b.HeuristicCurNodeToEndLen;
+            IsOpened = b.IsOpened;
+            IsClosed = b.IsClosed;
+            Parent = b.Parent;
         }
 
         public void Reset(bool? iWalkable = null) {
             if (iWalkable.HasValue)
-                walkable = iWalkable.Value;
-            this.heuristicStartToEndLen = 0;
-            this.startToCurNodeLen = 0;
-            this.heuristicCurNodeToEndLen = null;
-            this.isOpened = false;
-            this.isClosed = false;
-            this.parent = null;
+                Walkable = iWalkable.Value;
+            HeuristicStartToEndLen = 0;
+            StartToCurNodeLen = 0;
+            // this must be initialized as null to verify that its value never initialized
+            // 0 is not good candidate!!
+            HeuristicCurNodeToEndLen = null;
+            IsOpened = false;
+            IsClosed = false;
+            Parent = null;
         }
 
-
-        public int CompareTo(object iObj) {
-            Node tOtherNode = (Node)iObj;
-            float result = this.heuristicStartToEndLen - tOtherNode.heuristicStartToEndLen;
+        public int CompareTo(Node iObj) {
+            float result = HeuristicStartToEndLen - iObj.HeuristicStartToEndLen;
             if (result > 0.0f)
-                return -1;
+                return 1;
             else if (result == 0.0f)
                 return 0;
-            return 1;
+            return -1;
         }
 
+
         public static List<GridPos> Backtrace(Node iNode) {
-            List<GridPos> path = new List<GridPos>();
-            path.Add(new GridPos(iNode.x, iNode.y));
-            while (iNode.parent != null) {
-                iNode = (Node)iNode.parent;
-                path.Add(new GridPos(iNode.x, iNode.y));
+            List<GridPos> path = new List<GridPos> {new GridPos(iNode.X, iNode.Y)};
+            while (iNode.Parent != null) {
+                iNode = (Node)iNode.Parent;
+                path.Add(new GridPos(iNode.X, iNode.Y));
             }
             path.Reverse();
             return path;
@@ -100,10 +109,10 @@ namespace kagv {
 
 
         public override int GetHashCode() {
-            return x ^ y;
+            return X ^ Y;
         }
 
-        public override bool Equals(System.Object obj) {
+        public override bool Equals(Object obj) {
             // If parameter is null return false.
             if (obj == null) {
                 return false;
@@ -111,12 +120,12 @@ namespace kagv {
 
             // If parameter cannot be cast to Point return false.
             Node p = obj as Node;
-            if ((System.Object)p == null) {
+            if ((Object)p == null) {
                 return false;
             }
 
             // Return true if the fields match:
-            return (x == p.x) && (y == p.y);
+            return (X == p.X) && (Y == p.Y);
         }
 
         public bool Equals(Node p) {
@@ -126,12 +135,12 @@ namespace kagv {
             }
 
             // Return true if the fields match:
-            return (x == p.x) && (y == p.y);
+            return (X == p.X) && (Y == p.Y);
         }
 
         public static bool operator ==(Node a, Node b) {
             // If both are null, or both are same instance, return true.
-            if (System.Object.ReferenceEquals(a, b)) {
+            if (ReferenceEquals(a, b)) {
                 return true;
             }
 
@@ -141,7 +150,7 @@ namespace kagv {
             }
 
             // Return true if the fields match:
-            return a.x == b.x && a.y == b.y;
+            return a.X == b.X && a.Y == b.Y;
         }
 
         public static bool operator !=(Node a, Node b) {
@@ -152,24 +161,21 @@ namespace kagv {
 
     public abstract class BaseGrid {
 
-        public BaseGrid() {
-            m_gridRect = new GridRect();
+        protected BaseGrid() {
+            MGridRect = new GridRect();
         }
 
-        public BaseGrid(BaseGrid b) {
-            m_gridRect = new GridRect(b.m_gridRect);
-            width = b.width;
-            height = b.height;
+        protected BaseGrid(BaseGrid b) {
+            MGridRect = new GridRect(b.MGridRect);
+            Width = b.Width;
+            Height = b.Height;
         }
 
-        protected GridRect m_gridRect;
-        public GridRect gridRect {
-            get { return m_gridRect; }
-        }
+        protected GridRect MGridRect;
 
-        public abstract int width { get; protected set; }
+        public abstract int Width { get; protected set; }
 
-        public abstract int height { get; protected set; }
+        public abstract int Height { get; protected set; }
 
         public abstract Node GetNodeAt(int iX, int iY);
 
@@ -183,9 +189,9 @@ namespace kagv {
 
         public abstract bool SetWalkableAt(GridPos iPos, bool iWalkable);
 
-        public List<Node> GetNeighbors(Node iNode, bool iCrossCorners, bool iCrossAdjacentPoint) {
-            int tX = iNode.x;
-            int tY = iNode.y;
+        public List<Node> GetNeighbors(Node iNode, DiagonalMovement diagonalMovement) {
+            int tX = iNode.X;
+            int tY = iNode.Y;
             List<Node> neighbors = new List<Node>();
             bool tS0 = false, tD0 = false,
                 tS1 = false, tD1 = false,
@@ -193,53 +199,61 @@ namespace kagv {
                 tS3 = false, tD3 = false;
 
             GridPos pos = new GridPos();
-            if (this.IsWalkableAt(pos.Set(tX, tY - 1))) {
+            if (IsWalkableAt(pos.Set(tX, tY - 1))) {
                 neighbors.Add(GetNodeAt(pos));
                 tS0 = true;
             }
-            if (this.IsWalkableAt(pos.Set(tX + 1, tY))) {
+            if (IsWalkableAt(pos.Set(tX + 1, tY))) {
                 neighbors.Add(GetNodeAt(pos));
                 tS1 = true;
             }
-            if (this.IsWalkableAt(pos.Set(tX, tY + 1))) {
+            if (IsWalkableAt(pos.Set(tX, tY + 1))) {
                 neighbors.Add(GetNodeAt(pos));
                 tS2 = true;
             }
-            if (this.IsWalkableAt(pos.Set(tX - 1, tY))) {
+            if (IsWalkableAt(pos.Set(tX - 1, tY))) {
                 neighbors.Add(GetNodeAt(pos));
                 tS3 = true;
             }
-            if (iCrossCorners && iCrossAdjacentPoint) {
-                tD0 = true;
-                tD1 = true;
-                tD2 = true;
-                tD3 = true;
-            } else if (iCrossCorners) {
-                tD0 = tS3 || tS0;
-                tD1 = tS0 || tS1;
-                tD2 = tS1 || tS2;
-                tD3 = tS2 || tS3;
-            } else {
-                tD0 = tS3 && tS0;
-                tD1 = tS0 && tS1;
-                tD2 = tS1 && tS2;
-                tD3 = tS2 && tS3;
+
+            switch (diagonalMovement) {
+                case DiagonalMovement.Always:
+                    tD0 = true;
+                    tD1 = true;
+                    tD2 = true;
+                    tD3 = true;
+                    break;
+                case DiagonalMovement.Never:
+                    break;
+                case DiagonalMovement.IfAtLeastOneWalkable:
+                    tD0 = tS3 || tS0;
+                    tD1 = tS0 || tS1;
+                    tD2 = tS1 || tS2;
+                    tD3 = tS2 || tS3;
+                    break;
+                case DiagonalMovement.OnlyWhenNoObstacles:
+                    tD0 = tS3 && tS0;
+                    tD1 = tS0 && tS1;
+                    tD2 = tS1 && tS2;
+                    tD3 = tS2 && tS3;
+                    break;
             }
 
-            if (tD0 && this.IsWalkableAt(pos.Set(tX - 1, tY - 1))) {
+            if (tD0 && IsWalkableAt(pos.Set(tX - 1, tY - 1))) {
                 neighbors.Add(GetNodeAt(pos));
             }
-            if (tD1 && this.IsWalkableAt(pos.Set(tX + 1, tY - 1))) {
+            if (tD1 && IsWalkableAt(pos.Set(tX + 1, tY - 1))) {
                 neighbors.Add(GetNodeAt(pos));
             }
-            if (tD2 && this.IsWalkableAt(pos.Set(tX + 1, tY + 1))) {
+            if (tD2 && IsWalkableAt(pos.Set(tX + 1, tY + 1))) {
                 neighbors.Add(GetNodeAt(pos));
             }
-            if (tD3 && this.IsWalkableAt(pos.Set(tX - 1, tY + 1))) {
+            if (tD3 && IsWalkableAt(pos.Set(tX - 1, tY + 1))) {
                 neighbors.Add(GetNodeAt(pos));
             }
             return neighbors;
         }
+
 
         public abstract void Reset();
 

@@ -25,10 +25,11 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 using System.Collections.Generic;
+using kagv.DLL_source;
 
 namespace kagv {
 
-    class Vehicle {
+    internal class Vehicle {
 
         //****************************************
         //AGV Status
@@ -37,10 +38,7 @@ namespace kagv {
             public bool Loaded { get; set; }
         }
 
-        private AGVStatus status = new AGVStatus();
-        public AGVStatus Status {
-            get { return this.status; }
-        }
+        public AGVStatus Status { get; } = new AGVStatus();
         //=========================================
 
         //*****************************************
@@ -50,13 +48,14 @@ namespace kagv {
             public double Y { get; set; }
         }
 
-        private AGVSteps[] steps;
-        public AGVSteps[] Steps {
-            get { return this.steps; }
+        private readonly AGVSteps[] _steps;
+        public AGVSteps[] Steps
+        {
+            get => _steps; 
         }
         //=========================================
         //AGV Path
-        public GridLine[] Paths = new GridLine[Constants.__MaximumSteps];
+        public GridLine[] Paths = new GridLine[Globals.MaximumSteps];
         public Point Location;
         public Point MarkedLoad;
 
@@ -66,149 +65,150 @@ namespace kagv {
         public int SizeX;
         public int SizeY;
         public int ID = -1;
+        public int LoadsDelivered = 0;
 
-        private Panel AgvPortrait;
-        private PictureBox AgvIcon;
-        private Point AgvLocation;
-        private Form mirroredForm;
+        private Panel _agvPortrait;
+        private PictureBox _agvIcon;
+        private Point _agvLocation;
+        private readonly Form _mirroredForm;
 
+        public bool HasLoadToPick;
 
         //*****************************************
         //AGV JumpPoints
-        private List<GridPos> jmp_pnts = new List<GridPos>();
-        public List<GridPos> JumpPoints {
-            get {
-                return this.jmp_pnts;
-            }
-            set {
-                this.jmp_pnts = value;
-            }
+        private List<GridPos> _jmpPnts = new List<GridPos>();
+        public List<GridPos> JumpPoints
+        {
+            get => _jmpPnts;
+            set => _jmpPnts=value;
         }
-        //=========================================
+ 
+        public int StepsCounter { get; set; }
 
-        //*****************************************
-        //AGV StepsCounter
-        private int steps_counter;
-        public int StepsCounter {
-            get {
-                return this.steps_counter;
-            }
-            set {
-                this.steps_counter = value;
-            }
-        }
         //=========================================
+        /// <summary>
+        /// Returns the absolute Location of the Marked Load on the Grid
+        /// </summary>
+        /// <returns></returns>
+        public Point GetMarkedLoad() {
+            Point p = new Point(
+                (MarkedLoad.X * Globals.BlockSide) + Globals.LeftBarOffset,
+                (MarkedLoad.Y * Globals.BlockSide) + Globals.TopBarOffset
+                );
+            return p;
+        }
 
 
 
         public Vehicle(Form handle) { //constructor
-            mirroredForm = handle;
-            this.status.Busy = false;
-            this.status.Loaded = false;
-            this.steps = new AGVSteps[Constants.__MaximumSteps];
-            for (int i = 0; i < steps.Length; i++) {
-                steps[i] = new AGVSteps();
-                steps[i].X = -1;
-                steps[i].Y = -1;
+            _mirroredForm = handle;
+            Status.Busy = false;
+            Status.Loaded = false;
+            _steps = new AGVSteps[Globals.MaximumSteps];
+            for (int i = 0; i < _steps.Length; i++) {
+                _steps[i] = new AGVSteps
+                {
+                    X = -1,
+                    Y = -1
+                };
             }
         }
-
+     
         public void Init() {
-
             //init vars
-            this.status.Busy = false;
-            this.status.Loaded = false;
+            Status.Busy = false;
+            Status.Loaded = false;
 
-            AgvPortrait = new Panel();
-            AgvPortrait.Name = "AGVPORTRAIT";
-            AgvIcon = new PictureBox();
+            _agvPortrait = new Panel
+            {
+                Name = "AGVPORTRAIT"
+            };
+            _agvIcon = new PictureBox();
 
-            AgvPortrait.Controls.Add(AgvIcon);
+            _agvPortrait.Controls.Add(_agvIcon);
 
-            Size _size = new Size(Constants.__BlockSide - 2, Constants.__BlockSide - 2);
-            Point _location = new Point(StartX, StartY);
-            AgvPortrait.Size = _size;
-            AgvPortrait.Location = _location;
-            AgvPortrait.Visible = true;
-            AgvPortrait.BringToFront();
-            AgvPortrait.BackColor = Color.Transparent;
+            Size size = new Size(Globals.BlockSide - 2, Globals.BlockSide - 2);
+            Point location = new Point(StartX, StartY);
+            _agvPortrait.Size = size;
+            _agvPortrait.Location = location;
+            _agvPortrait.Visible = true;
+            _agvPortrait.BringToFront();
+            _agvPortrait.BackColor = Color.Transparent;
 
-            mirroredForm.Controls.Add(AgvPortrait);
+            _mirroredForm.Controls.Add(_agvPortrait);
 
-            AgvIcon.BackColor = mirroredForm.BackColor;
-            AgvIcon.BorderStyle = BorderStyle.None;
-            AgvIcon.SizeMode = PictureBoxSizeMode.StretchImage;
-            AgvIcon.Size = _size;
-            AgvIcon.Visible = true;
+            _agvIcon.BackColor = _mirroredForm.BackColor;
+            _agvIcon.BorderStyle = BorderStyle.None;
+            _agvIcon.SizeMode = PictureBoxSizeMode.StretchImage;
+            _agvIcon.Size = size;
+            _agvIcon.Visible = true;
 
-            AgvIcon.Image = _getEmbedResource("empty.png");
+            _agvIcon.Image = _getEmbedResource("empty.png");
 
-            AgvIcon.BackColor = Color.Transparent;
+            _agvIcon.BackColor = Color.Transparent;
 
             //public exports
-            Location = AgvPortrait.Location;
+            Location = _agvPortrait.Location;
 
         }
 
 
 
         private Image _getEmbedResource(string a) {
-            System.Reflection.Assembly _assembly;
-            Stream _myStream;
-            _assembly = System.Reflection.Assembly.GetExecutingAssembly();
-
-            _myStream = _assembly.GetManifestResourceStream("kagv.Resources." + a);
-            Image _b = Image.FromStream(_myStream);
-            return _b;
-
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            Stream myStream = assembly.GetManifestResourceStream("kagv.Resources." + a);
+            if (myStream == null) return null;
+            Image b = Image.FromStream(myStream);
+            return b;
         }
 
-        public void killIcon() {
+        public void KillIcon() {
             try {
-                this.AgvIcon.Dispose();
-                this.AgvPortrait.Dispose();
+                _agvIcon.Dispose();
+                _agvPortrait.Dispose();
             } catch { }
         }
 
 
-        public void setLoaded() {
-            this.AgvIcon.Image = _getEmbedResource("loaded.png");
-            this.status.Loaded = true;
+        public void SetLoaded() {
+            _agvIcon.Image = _getEmbedResource("loaded.png");
+            Status.Loaded = true;
         }
 
-        public void setEmpty() {
-            this.AgvIcon.Image = _getEmbedResource("empty.png");
-            this.status.Loaded = false;
+        public void SetEmpty() {
+            _agvIcon.Image = _getEmbedResource("empty.png");
+            Status.Loaded = false;
         }
 
-        public void updateAGV() {
-            if (mirroredForm.Controls.Count != 0) {
-                foreach (Control p in mirroredForm.Controls) {
-                    if (p == AgvIcon)
-                        mirroredForm.Controls.Remove(p);
+        public void UpdateAGV() {
+            if (_mirroredForm.Controls.Count != 0) {
+                foreach (Control p in _mirroredForm.Controls) {
+                    if (p == _agvIcon)
+                        _mirroredForm.Controls.Remove(p);
                     if (p.Name == "AGVPORTRAIT")
-                        mirroredForm.Controls.Remove(p);
+                        _mirroredForm.Controls.Remove(p);
                 }
 
-            } else
-                return;
+            } 
         }
 
-
-        public void SetLocation(int X, int Y) {
-            AgvLocation = new Point(X, Y);
-            AgvPortrait.Location = AgvLocation;
-            Location = AgvLocation;
+        public void SetLocation(int x, int y) {
+            _agvLocation = new Point(x, y);
+            _agvPortrait.Location = _agvLocation;
+            Location = _agvLocation;
         }
         public void SetLocation(Point loc) {
-            AgvLocation = loc;
-            AgvPortrait.Location = AgvLocation;
-            Location = AgvLocation;
+            _agvLocation = loc;
+            _agvPortrait.Location = _agvLocation;
+            Location = _agvLocation;
         }
 
-        public Point GetLocation() {
-            return new Point(AgvLocation.X, AgvLocation.Y);
+        //AGVs[agv_index].SetLocation(stepx - ((Constants.BlockSide / 2) - 1) +1, stepy - ((Constants.BlockSide / 2) - 1) + 1); //this is how we move the AGV on the grid (Setlocation function)
+        //                                                                     ^
+        public Point GetLocation() { //has to be -1 to balance this            |   from functions.cs
+            return new Point(_agvLocation.X - 1, _agvLocation.Y - 1);//          |  
         }
+
 
     }
 
